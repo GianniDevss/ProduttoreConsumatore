@@ -15,8 +15,6 @@ class ContoCorrente {
         try {
             semaforo.acquire();
 
-            
-
             System.out.println(Thread.currentThread().getName() + " tenta di prelevare " + importo + "€");
 
             if (saldo >= importo) {
@@ -30,6 +28,25 @@ class ContoCorrente {
             
 
         } catch (InterruptedException e) { }
+        finally {
+            semaforo.release();
+        }
+    }
+
+    public void versa(int importo) {
+
+        
+        try {
+            semaforo.acquire();
+            
+            System.out.println(Thread.currentThread().getName() + " tenta di versare " + importo + "€");
+
+                System.out.println(Thread.currentThread().getName() + " versamento riuscito!");
+                saldo += importo;
+            System.out.println("Saldo attuale: " + saldo + "€");
+
+        } catch (InterruptedException e) { }
+
         finally {
             semaforo.release();
         }
